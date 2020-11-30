@@ -1,10 +1,38 @@
 import Head from 'next/head'
+import { useEffect } from 'react';
+import useSWR from 'swr'
+import fetch from "isomorphic-unfetch"
 
+
+/* async function initializeMe(){    
+    const url = 'http://localhost:5000/arquivo'
+    console.log('aa');
+    const fetcher = (url) => fetch(url)
+    .then((res) => res.json()
+        ).then(console.log('fetcher'));
+    
+} */
 export default function Home() {
+    const fetcher = (...args) => fetch(...args).then(res => res.json());
+    var { data, error } = 
+    useSWR('http://localhost:5000/arquivo',  fetcher)
+    
+    if (error) error = (<div>aaaa</div>);
+    if (!data) data = (<div>aaaa</div>);
+
+    function logar(){
+        console.log(data);
+    }
+
+    useEffect(
+        () => {
+            console.log(data);              
+          }, []
+    )
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>gabsDrive</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -18,8 +46,10 @@ export default function Home() {
         </p>
 
         <div className="grid">
+        
           <a href="https://nextjs.org/docs" className="card">
             <h3>Documentation &rarr;</h3>
+            
             <p>Find in-depth information about Next.js features and API.</p>
           </a>
 
