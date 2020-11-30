@@ -17,7 +17,7 @@ export default function Home() {
     var { data, error } = 
     useSWR('http://localhost:5000/arquivo',  fetcher)
     
-    if (error) error = (<div>aaaa</div>);
+    if (error) error = (<div> erro é +{error}</div>);
     if (!data) data = (<div>aaaa</div>);
 
     function logar(){
